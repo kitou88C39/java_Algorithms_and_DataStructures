@@ -19,10 +19,11 @@ public class Main {
             //要素がkと一致しているか判定して
             if (a[i] == k) {
             //一致していたらインデックスを保存してループを抜ける
-                
-                indexOfK = i;
+                indexOfK = i + 1;
                 break;
+            }
         }
-        }
+        //答えを出力する
+        System.out.println(indexOfK);
     }
 }
