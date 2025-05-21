@@ -14,11 +14,11 @@ public class Main {
         int numOfK = 0;
 
         for (int value : a) {
-            if (value <= k) {
+            if (value == k) {
                 numOfK++;
             }
         }
-
         System.out.println(numOfK);
+        sc.close();
     }
 }
