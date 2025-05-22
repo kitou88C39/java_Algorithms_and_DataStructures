@@ -21,6 +21,6 @@ public class Main {
         }
         // ★修正点2: タイプミスを修正 (indexOfEvent -> indexOfEven)
         System.out.println(indexOfEven); 
-        sc.close(); // Scannerを閉じる（リソースリークを防ぐため）
+        
     }
 }
