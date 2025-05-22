@@ -31,6 +31,5 @@ public class Main {
         // 答えを出力する
         System.out.println(foundPosition);
 
-        sc.close(); // Scanner のリソースを解放する
     }
 }
