@@ -27,6 +27,6 @@ public class Main {
 
         // 答えを出力する
         System.out.println(indexOfK);
-        sc.close(); // Scannerを閉じる（リソース解放のため）
+        
     }
 }
