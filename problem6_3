@@ -1,34 +1,23 @@
-import java.util.Scanner; // Scannerクラスをインポート
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in); // Scannerオブジェクトを生成
-
+        Scanner sc = new Scanner(System.in);
         // 入力を受け取る
-        int n = sc.nextInt(); // 数列の要素数 n を読み込む
-        int[] a = new int[n]; // 要素数 n の整数配列 a を宣言
+        int n = sc.nextInt();
+        int[] a = new int[n];
         for (int i = 0; i < n; i++) {
-            a[i] = sc.nextInt(); // 配列 a の各要素を読み込む
+            a[i] = sc.nextInt();
         }
 
-        // 最大値と最小値を保存する変数を初期化
-        // ★誤りの訂正: 初期値を見直す
-        // 最も安全で汎用的な方法は、配列の最初の要素で初期化することです。
-        // もしくは、int型の最小値/最大値で初期化する方法もあります。
-        int maximum = a[0]; // ★修正点1: 配列の最初の要素で初期化
-        int minimum = a[0]; // ★修正点1: 配列の最初の要素で初期化
+        // 答えを保存する変数を用意して適切な初期値で初期化
 
-        // 配列の全要素をチェックし、最大値と最小値を更新するループ
-        // 最初の要素で初期化したので、ループはインデックス1から開始することも可能ですが、
-        // 拡張forループを使う場合、そのまま全ての要素を処理しても問題ありません。
-        for (int value : a) { // 拡張forループで配列 a の各要素を順に処理
-            maximum = Math.max(maximum, value); // maximum と 現在の value を比較し、大きい方を maximum に代入
-            minimum = Math.min(minimum, value); // minimum と 現在の value を比較し、小さい方を minimum に代入
-        }
 
-        // 最大値と最小値を半角スペース区切りで1行に出力
-        System.out.println(maximum + " " + minimum);
-        
-        sc.close(); // Scanner のリソースを解放する（良い習慣です）
+        // 配列の全要素をチェックするループを書いて
+        // 答えを更新
+
+
+        // 答えを出力する
+
     }
 }
