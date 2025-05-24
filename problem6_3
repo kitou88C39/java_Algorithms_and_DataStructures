@@ -1,23 +1,35 @@
-import java.util.Scanner;
+import java.util.Scanner; // Scannerクラスをインポート
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in); // Scannerオブジェクトを生成
+
         // 入力を受け取る
-        int n = sc.nextInt();
-        int[] a = new int[n];
+        int n = sc.nextInt(); // 数列の要素数 n を読み込む
+        int[] a = new int[n]; // 要素数 n の整数配列 a を宣言
         for (int i = 0; i < n; i++) {
-            a[i] = sc.nextInt();
+            a[i] = sc.nextInt(); // 配列 a の各要素を読み込む
         }
 
         // 答えを保存する変数を用意して適切な初期値で初期化
-
+        // 最も安全な方法は、配列の最初の要素を初期値とすることです。
+        // これにより、どんな範囲の数値が入力されても対応できます。
+        int maximum = a[0]; // 配列の最初の要素を最大値の初期値とする
+        int minimum = a[0]; // 配列の最初の要素を最小値の初期値とする
 
         // 配列の全要素をチェックするループを書いて
         // 答えを更新
-
+        // 拡張forループで配列 a の各要素を順に処理します。
+        // Math.maxは2つの値のうち大きい方を、Math.minは小さい方を返します。
+        for (int value : a) { 
+            maximum = Math.max(maximum, value); // 現在の最大値と要素を比較し、大きい方を新しい最大値とする
+            minimum = Math.min(minimum, value); // 現在の最小値と要素を比較し、小さい方を新しい最小値とする
+        }
 
         // 答えを出力する
-
+        // 最大値と最小値を半角スペース区切りで1行に出力します。
+        System.out.println(maximum + " " + minimum);
+        
+        sc.close(); // Scanner のリソースを解放する（良い習慣です）
     }
 }
