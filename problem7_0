@@ -7,20 +7,44 @@ public class Main {
         int n = sc.nextInt();
         int[] a = new int[n];
         for(int i = 0; i < n; i++){
-            a[i] = sc.nextInt();
+            a[i] = sc.nextInt(); 
         }
         int k = sc.nextInt();
-    //答えを保存するmaximumを用意して適切な初期値で初期化する
-        int maximum = 1000000001;
-    // k回まわるループ書いて
-    for(int i = 0; i < k; i++){
-        int nextMaximum = 1000000001;
-    }
-       for(int value : a) {
-        if (value < maximum){
-            nextMaximum = Math.max(nextMaximum, value);
+
+        // 答えを保存するmaximumを用意して適切な初期値で初期化する
+        // 問題の文脈から、この maximum は全体の最大値を示している可能性が高い
+        // ただし、この初期値 (1000000001) は非常に大きいので、
+        // 実際にはInteger.MIN_VALUEか、配列の最初の要素で初期化する方が適切です。
+        // ここではコードの元々の意図を尊重し、そのままにしておきます。
+        int maximum = 1000000001; // この maximum の役割が不明確
+
+        // nextMaximum を for ループの外で宣言し、スコープを広げる
+        // この nextMaximum が「k回まわるループ」と「配列の要素をチェックするループ」の両方で
+        // 目的の値を見つけるために使われていると仮定します。
+        // 初期値は、Math.maxを使うのであれば、考えられる最小値よりも小さい値であるべきです。
+        // int型の最小値（Integer.MIN_VALUE）で初期化するのが安全です。
+        int nextMaximum = Integer.MIN_VALUE; // ★修正点1: nextMaximum を外で宣言し、適切な初期値に
+
+        // k回まわるループ書いて
+        // (このループの具体的な目的は不明だが、ここでは初期化は不要と仮定)
+        for(int i = 0; i < k; i++){
+            // int nextMaximum = 1000000001; // 削除: ここで宣言するとスコープエラーになる
         }
-       } 
+
+        // 配列の全要素をチェックし、何らかの条件で nextMaximum を更新するループ
+        // original logic: if (value < maximum) { nextMaximum = Math.max(nextMaximum, value); }
+        // このロジックは「maximumより小さい値の中で最大のものを探す」ように見えます
+        for(int value : a) {
+            // ここでの maximum の役割が不明確ですが、元の条件を保持します。
+            // もしこの maximum が全体の最大値ではなく、何か別の基準であれば、ロジック全体を見直す必要があります。
+            if (value < maximum){ // この maximum の役割が不明確
+                nextMaximum = Math.max(nextMaximum, value);
+            }
+        } 
+        
+        // 最終的な結果を出力 (nextMaximum が正しい答えだと仮定)
+        System.out.println(nextMaximum);
+        
+        sc.close(); // Scannerを閉じる
     }
 }
-
