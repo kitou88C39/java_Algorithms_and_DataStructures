@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
+        int k = sc.nextInt();
+
+        // 答えを保存する変数 maximum を用意して適切な初期値で初期化
+        int maximum = 101;
+
+        for (int i = 0; i < k; i++) {
+            // 数列に含まれる maximum 未満の値の最大値を保存する変数 nextMaximum を用意して適切な初期値で初期化
+            int nextMaximum = -101;
+
+            // 配列の全要素をチェックするループを書いて
+            for (int value : a) {
+                // 要素が maximum 未満かどうか判定して
+                // 未満なら nextMaximum を更新する
+
+
+            }
+
+            // maximum を更新する
+            maximum = nextMaximum;
+        }
+
+        System.out.println(maximum);
+    }
+}
