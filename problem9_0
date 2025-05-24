@@ -15,7 +15,7 @@ public class Main {
 			
             int minIndex = i;
             for (int j = i + 1; j < n; j++){
-                if(a[j] a[minIndex]){
+                if(a[j] < a[minIndex]){
                     minIndex = j;
                 }
             }
