@@ -21,7 +21,7 @@ public class Main {
                 a[j + 1] = a[j];
                 j--;
             }
-
+            a[j + 1] = x;
 			print(a, n);
 		}
 	}
