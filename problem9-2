@@ -1,42 +1,63 @@
 import java.util.Scanner;
 
 public class Main {
-	static void print(int a[], int n) {
-		for (int i = 0; i < n; i++) {
-			if (i > 0)
-				System.out.print(" ");
-			System.out.print(a[i]);
-		}
-		System.out.println();
-	}
+    // 配列の内容を出力するヘルパー関数
+    static void print(int a[], int n) {
+        for (int i = 0; i < n; i++) {
+            if (i > 0)
+                System.out.print(" ");
+            System.out.print(a[i]);
+        }
+        System.out.println();
+    }
 
-	static void selectionSort(int a[], int n) {
-		for (int i = 0; i < n - 1; i++) {
-			int minIndex;
-			for (int j = i + 1; j < n; j++) {
-				if (a[j] < a[minIndex]) {
-					minIndex = j;
-				}
-			}
+    // 選択ソートのメインロジック
+    static void selectionSort(int a[], int n) {
+        // 配列の先頭からn-1番目まで（最後の要素は自動的にソートされるため）ループ
+        for (int i = 0; i < n - 1; i++) {
+            // 変数 minIndex を用意する
+            // ★修正点: minIndex を i で初期化する
+            // 現在のソート対象範囲の先頭が、一時的な最小値のインデックスとなります。
+            int minIndex = i; 
+            
+            // j が i+1 から n-1 までの for 文を用意する
+            // 未ソート部分 (i+1からn-1) から最小値を探します。
+            for (int j = i + 1; j < n; j++) {
+                // A_j < A_{minIndex} なら
+                // minIndex を j に更新する
+                if (a[j] < a[minIndex]) { 
+                    minIndex = j;          
+                }
+            }
 
-			int min = a[minIndex];
-			a[minIndex] = a[i];
-			a[i] = min;
+            // A_i と A_{minIndex} を交換する
+            // 現在の i 番目の要素と、見つけた最小値の要素を入れ替えます。
+            int temp = a[minIndex]; 
+            a[minIndex] = a[i];     
+            a[i] = temp;            
 
-			print(a, n);
-		}
-	}
+            // 各 i の処理が終わった時点での配列を出力
+            print(a, n);
+        }
+    }
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-		int n = sc.nextInt();
+        int n = sc.nextInt();
 
-		int a[] = new int[n];
-		for (int i = 0; i < n; i++) {
-			a[i] = sc.nextInt();
-		}
+        int a[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
 
-		selectionSort(a, n);
-	}
+        // ソート前の配列の状態を出力する必要がある場合は、この行を追加。
+        // 問題文の「各 i (i = 1, 2, ..., n - 1) について i 回目の処理が終わった時点での配列を出力してください。」
+        // と期待出力例から、i=0（最初の交換後）からの出力で良いと解釈できます。
+        // print(a, n); 
+
+        selectionSort(a, n);
+
+        sc.close(); // Scannerのリソースを解放
+    }
 }
