@@ -4,32 +4,53 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // 入力を受け取る
-        int n = sc.nextInt();
-        int[] a = new int[n];
+        int n = sc.nextInt(); // 数列の要素数 n
+        int[] a = new int[n]; // 要素数 n の配列 a を宣言
         for (int i = 0; i < n; i++) {
-            a[i] = sc.nextInt();
+            a[i] = sc.nextInt(); // 配列 a の各要素を読み込む
         }
-        int k = sc.nextInt();
+        int k = sc.nextInt(); // k 番目に大きい値を求める k
 
-        // 答えを保存する変数 maximum を用意して適切な初期値で初期化
-        int maximum = 101;
+        // 答えを保存する変数 result を用意し、適切な初期値で初期化
+        // 最初のループで配列全体の最大値を見つけるため、考えられる最小値より小さい値で初期化
+        // 例: -100 と 100 の範囲の入力であれば、それより小さい値にする
+        // ここでは、Integer.MIN_VALUE を使用してどんな整数範囲にも対応できるようにします。
+        int result = Integer.MIN_VALUE; 
 
         // k回まわるループを書いて
-        for (int i = 0; i < k; i++) {
-            // 数列に含まれる maximum 未満の値の最大値を保存する変数 nextMaximum を用意して適切な初期値で初期化
-            int nextMaximum = -101;
+        // 1回目のループで1番目に大きい値（最大値）を見つけ、
+        // 2回目のループで2番目に大きい値を見つける、というように繰り返します。
+        for (int count = 0; count < k; count++) { // count は何番目に大きい値を見つけるかを表す
+            // 数列に含まれる current_maximum 未満の値の最大値を保存する変数 next_candidate を用意
+            // 初期値は、考えられる最小値より小さい値に設定
+            int nextCandidate = Integer.MIN_VALUE; 
 
             // 配列の全要素をチェックするループを書いて
             for (int value : a) {
-                // nextMaximum を更新する
-                nextMaximum = Math.max(nextMaximum, value);
+                // ここが重要:
+                // 現在の value が、既に result (これまでに特定した最大値) よりも小さい場合、
+                // かつ nextCandidate (次の候補の最大値) よりも大きい場合に更新する
+                // または、result が初期値の場合（最初のループの場合）は、単純に最大値を探す
+                
+                // 初回 (count == 0) は配列全体の最大値を探す
+                // 2回目以降は、result（すでに特定したk番目の値）より小さい値の中で最大を探す
+                if (count == 0) { // 1番目に大きい値を探す（配列全体の最大値）
+                    nextCandidate = Math.max(nextCandidate, value);
+                } else { // 2番目以降に大きい値を探す
+                    // value が、現在見つけている k-1 番目に大きい値 (result) よりも小さい
+                    // かつ、nextCandidate (次に大きい値の候補) よりも大きい場合に更新
+                    if (value < result) { // result は一つ前のループで見つけた「何番目か」の最大値
+                        nextCandidate = Math.max(nextCandidate, value);
+                    }
+                }
             }
-
-            // maximum を更新する
-            maximum = nextMaximum;
+            // 答えを更新する
+            result = nextCandidate; // このループで見つけた「何番目か」の最大値を result に保存
         }
 
         // 答えを出力する
-        System.out.println(maximum);
+        System.out.println(result);
+        
+        sc.close(); // Scannerのリソースを解放
     }
 }
