@@ -19,6 +19,11 @@ public class Main {
                     minIndex = j;
                 }
             }
+
+            int min = a[minIndex];
+            a[minIndex] = a[i];
+            a[i] = min;
+
 			print(a, n);
 		}
 	}
