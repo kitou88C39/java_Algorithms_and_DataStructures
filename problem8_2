@@ -1,42 +1,61 @@
-import java.util.Scanner;
+import java.util.Scanner; // Scannerクラスをインポート
 
 public class Main {
-	static void print(int a[], int n) {
-		for (int i = 0; i < n; i++) {
-			if (i > 0)
-				System.out.print(" ");
-			System.out.print(a[i]);
-		}
-		System.out.println();
-	}
+    // 配列の内容を出力するヘルパー関数
+    static void print(int a[], int n) {
+        for (int i = 0; i < n; i++) {
+            if (i > 0) // 最初の要素以外はスペースを挿入
+                System.out.print(" ");
+            System.out.print(a[i]); // 要素を出力
+        }
+        System.out.println(); // 改行
+    }
 
-	static void insertionSort(int a[], int n) {
-		for (int i = 1; i < n; i++) {
+    // 挿入ソートのメインロジック
+    static void insertionSort(int a[], int n) {
+        // 最初の要素はソート済みと見なし、2番目の要素から順に挿入していく
+        for (int i = 1; i < n; i++) {
+            // 先に a[i]（挿入する要素）を保存しておき、x とする
+            int x = a[i];
+            // 挿入する位置を探すための変数 j を用意する
+            // j は x と比較するソート済み部分の最後の要素のインデックス
+            int j = i - 1;
 
-			int x = a[i];
-			int j = i - 1;
+            // j が 0 以上（配列の範囲内）かつ a[j] が x（挿入する要素）より大きい間
+            // (a[j] が x より大きければ、x のためのスペースを作るために右にずらす必要がある)
+            while (j >= 0 && a[j] > x) { // ★修正点: ここを a[j] > x に変更
+                // a[j] を 1 つ右にずらす
+                a[j + 1] = a[j];
+                // j を 1 減らす (次の左の要素をチェックするためにインデックスを移動)
+                j--;
+            }
 
-			while (j >= 0 && a[j] < x) {
-				a[j + 1] = a[j];
-				j--;
-			}
+            // while ループが終了した時点で、j+1 が x を挿入すべき位置となる
+            // a[j+1] に x を挿入する
+            a[j + 1] = x;
 
-			a[j + 1] = x;
+            // 各 i の処理が終わった時点での配列を出力
+            print(a, n);
+        }
+    }
 
-			print(a, n);
-		}
-	}
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); // Scannerオブジェクトを生成
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); // 数列の要素数 n を読み込む
 
-		int n = sc.nextInt();
+        int a[] = new int[n]; // 要素数 n の整数配列 a を宣言
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt(); // 配列 a の各要素を読み込む
+        }
+        
+        // 最初の状態を出力（問題文には明示されていないが、競技プログラミングではソート前の出力が求められることもある）
+        // 今回の問題では、i=1 からの各ステップ出力なので、この行は通常不要。
+        // ただし、出力例の最初の行は i=1 の結果なので、このままinsertionSortを呼び出す。
+        // print(a, n); // ソート開始前の状態を出力する場合はこの行
 
-		int a[] = new int[n];
-		for (int i = 0; i < n; i++) {
-			a[i] = sc.nextInt();
-		}
+        insertionSort(a, n); // 挿入ソートを実行
 
-		insertionSort(a, n);
-	}
+        sc.close(); // Scanner のリソースを解放
+    }
 }
