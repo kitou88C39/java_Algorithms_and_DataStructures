@@ -3,32 +3,52 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] a = new int[n];
+        // 入力を受け取る
+        int n = sc.nextInt(); // 数列の要素数 n
+        int[] a = new int[n]; // 要素数 n の配列 a を宣言
         for (int i = 0; i < n; i++) {
-            a[i] = sc.nextInt();
+            a[i] = sc.nextInt(); // 配列 a の各要素を読み込む
         }
-        int k = sc.nextInt();
+        int k = sc.nextInt(); // k 番目に大きい値を求める k
 
-        // 答えを保存する変数 maximum を用意して適切な初期値で初期化
-        int maximum = 101;
+        // 答えを保存する変数 currentKthLargest を用意して適切な初期値で初期化
+        // 最初のループで1番目の最大値を見つけるため、考えられる最小値よりも小さい値で初期化します。
+        // ここでは Integer.MAX_VALUE ではなく、考えられる最小値として Integer.MIN_VALUE を使用します。
+        // （あるいは、数列の要素が -100から100 の範囲と仮定して、-101などで初期化することもできますが、
+        // 汎用性を高めるため Integer.MIN_VALUE が適切です）
+        int currentKthLargest = Integer.MAX_VALUE; // 初期値として最も大きい値に設定し、初回で最初の最大値を探す
 
-        for (int i = 0; i < k; i++) {
-            // 数列に含まれる maximum 未満の値の最大値を保存する変数 nextMaximum を用意して適切な初期値で初期化
-            int nextMaximum = -101;
+        // k回まわるループを書いて
+        // 各ループで、これまでに特定した「何番目か」の最大値よりも小さい値の中から、
+        // 次の最大の値を探していきます。
+        for (int count = 0; count < k; count++) {
+            // 現在のループで見つけようとしている「次」の最大値の候補を保存する変数 nextCandidate を用意
+            // 初期値は、考えられる最小値より小さい値に設定します。
+            int nextCandidate = Integer.MIN_VALUE;
 
             // 配列の全要素をチェックするループを書いて
             for (int value : a) {
-                // 要素が maximum 未満かどうか判定して
-                // 未満なら nextMaximum を更新する
+                // 要素が currentKthLargest 未満かどうか判定して
+                // 未満なら nextCandidate を更新する
 
-
+                // (1) 最初のループ (count == 0) の場合:
+                // 配列全体の最大値を探します。この時、currentKthLargest は初期値 (Integer.MAX_VALUE) なので、
+                // どんな value も currentKthLargest 未満になります。
+                // (2) 2回目以降のループの場合:
+                // value が、これまでに特定した k-1 番目に大きい値 (currentKthLargest) よりも小さい場合に、
+                // nextCandidate の更新対象とします。
+                if (value < currentKthLargest) {
+                    nextCandidate = Math.max(nextCandidate, value);
+                }
             }
-
-            // maximum を更新する
-            maximum = nextMaximum;
+            // maximum (currentKthLargest) を更新する
+            // このループで見つけた「何番目か」の最大値を currentKthLargest に保存し、次のループの基準とします。
+            currentKthLargest = nextCandidate;
         }
 
-        System.out.println(maximum);
+        // 答えを出力する
+        System.out.println(currentKthLargest);
+
+        sc.close(); // Scanner のリソースを解放する（良い習慣です）
     }
 }
